@@ -14,10 +14,16 @@ public class LongContainer implements Container{
 
     @Override
     public void getInputs() {
-        while(scanner.hasNextLong()) {
-            long l = scanner.nextLong();
-            list.add(l);
-            counter.put(l, counter.getOrDefault(l, 0) + 1);
+        while(scanner.hasNext()) {
+            String next = scanner.next();
+            try{
+                long l = Long.parseLong(next);
+                list.add(l);
+                counter.put(l, counter.getOrDefault(l, 0) + 1);
+            } catch(NumberFormatException e) {
+                System.out.printf("\"%s\" is not a long. It will be skipped.\n", next);
+                continue;
+            }
         }
     }
 
