@@ -4,47 +4,27 @@ import java.util.*;
 
 public class Main {
     public static void main(final String[] args) {
-        String dtype = "";
-        if(args.length > 1) {
-            dtype = args[1];
+        String dataType = "", sortingType = "";
+
+        for (int i = 0; i < args.length; i++) {
+            if(args[i].equals("-dataType")) {
+                i++;
+                dataType = args[i];
+            } else if(args[i].equals("-sortingType")){
+                i++;
+                sortingType = args[i];
+            }
         }
-        boolean sortIntegers =  Arrays.asList(args).contains("-sortIntegers");
+
+        dataType = dataType.equals("") ? "long" : dataType;
+        sortingType = sortingType.equals("") ? "natural" : sortingType;
+
         Scanner scanner = new Scanner(System.in);
-        if(sortIntegers) {
-            ArrayList<Long> list = new ArrayList<>();
-            while(scanner.hasNextLong()) {
-                list.add(scanner.nextLong());
-            }
-            list.sort(((o1, o2) -> (int) (o1-o2)));
-            System.out.printf("Total numbers: %d.\n", list.size());
-            System.out.print("Sorted data:");
-            for(int i = 0; i < list.size(); i++) {
-                System.out.print(" ");
-                System.out.print(list.get(i));
-            }
-        } else {
-            if(dtype.equals("long")) {
-                Container<Long> container = new Container<>("number", "greatest", scanner,
-                        (o1, o2) -> (int)(o1 - o2));
+        Container container = Container.create(dataType, scanner);
 
-                container.getInputs(Scanner::hasNextLong, Scanner::nextLong);
-                container.describe();
-            } else if(dtype.equals("line")) {
-                Container<String> container = new Container<>("line", "longest", scanner,
-                        Comparator.comparingInt(String::length));
-
-                container.getInputs(Scanner::hasNextLine, Scanner::nextLine);
-                container.describe();
-            } else if(dtype.equals("word")) {
-                Container<String> container = new Container<>("word", "longest", scanner,
-                        Comparator.comparingInt(String::length));
-
-                container.getInputs(Scanner::hasNext, Scanner::next);
-                container.describe();
-            }
-        }
-
-
+        container.getInputs();
+        container.describe();
+        container.sort(sortingType);
 
     }
 }
