@@ -1,0 +1,5 @@
+-dataType long -sortingType natural
+Input:
+1 -2   333 4
+42
+1                 1

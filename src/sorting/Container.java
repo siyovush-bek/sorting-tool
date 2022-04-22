@@ -1,5 +1,7 @@
 package sorting;
 
+import java.io.PrintStream;
+import java.io.PrintWriter;
 import java.util.Scanner;
 
 public interface Container {
@@ -9,17 +11,17 @@ public interface Container {
     void sortNatural();
     void describe();
 
-    static Container create(String dataType, Scanner scanner) {
+    static Container create(String dataType, Scanner scanner, PrintWriter writer) {
         Container container;
         switch (dataType) {
             case "line":
-                container = new LineContainer(scanner);
+                container = new LineContainer(scanner, writer);
                 break;
             case "word":
-                container = new WordContainer(scanner);
+                container = new WordContainer(scanner, writer);
                 break;
             case "long":
-                container = new LongContainer(scanner);
+                container = new LongContainer(scanner, writer);
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + dataType);

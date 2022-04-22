@@ -1,5 +1,6 @@
 package sorting;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -9,10 +10,12 @@ public class WordContainer implements Container{
     protected ArrayList<String> list;
     protected HashMap<String, Integer> counter;
     protected Scanner scanner;
-    public WordContainer(Scanner scanner) {
+    protected PrintWriter writer;
+    public WordContainer(Scanner scanner, PrintWriter writer) {
         this.list = new ArrayList<>();
         this.scanner = scanner;
         this.counter = new HashMap<>();
+        this.writer = writer;
     }
 
     @Override
@@ -33,7 +36,7 @@ public class WordContainer implements Container{
         for(String s : keys) {
             int count = counter.get(s);
             int percentage = count * 100 / list.size();
-            System.out.printf("%s: %d time(s), %d%%\n",
+            writer.printf("%s: %d time(s), %d%%\n",
                     s, count, percentage);
         }
     }
@@ -43,13 +46,14 @@ public class WordContainer implements Container{
         list.sort(String::compareTo);
         System.out.print("Sorted data:");
         for(String s : list) {
-            System.out.print(' ');
-            System.out.print(s);
+            writer.printf(" ");
+            writer.printf(s);
         }
     }
 
+
     @Override
     public void describe() {
-        System.out.printf("Total words: %d.\n", list.size());
+        writer.printf("Total words: %d.\n", list.size());
     }
 }

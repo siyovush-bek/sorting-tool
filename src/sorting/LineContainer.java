@@ -1,5 +1,6 @@
 package sorting;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -8,8 +9,8 @@ import java.util.Scanner;
 public class LineContainer extends WordContainer {
 
 
-    public LineContainer(Scanner scanner) {
-        super(scanner);
+    public LineContainer(Scanner scanner, PrintWriter writer) {
+        super(scanner, writer);
     }
 
     @Override
@@ -23,7 +24,7 @@ public class LineContainer extends WordContainer {
 
     @Override
     public void describe() {
-        System.out.printf("Total lines: %d.\n", list.size());
+        writer.printf("Total lines: %d.\n", list.size());
     }
     
 }

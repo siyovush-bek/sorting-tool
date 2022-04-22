@@ -1,15 +1,19 @@
 package sorting;
 
+import java.io.PrintStream;
+import java.io.PrintWriter;
 import java.util.*;
 
 public class LongContainer implements Container{
     private ArrayList<Long> list;
     private Scanner scanner;
     private HashMap<Long, Integer> counter;
-    public LongContainer(Scanner scanner) {
+    private PrintWriter writer;
+    public LongContainer(Scanner scanner, PrintWriter writer) {
         this.list = new ArrayList<>();
         this.scanner = scanner;
         this.counter = new HashMap<>();
+        this.writer = writer;
     }
 
     @Override
@@ -22,7 +26,6 @@ public class LongContainer implements Container{
                 counter.put(l, counter.getOrDefault(l, 0) + 1);
             } catch(NumberFormatException e) {
                 System.out.printf("\"%s\" is not a long. It will be skipped.\n", next);
-                continue;
             }
         }
     }
@@ -37,7 +40,7 @@ public class LongContainer implements Container{
         for(Long l : keys) {
             int count = counter.get(l);
             int percentage = count * 100 / list.size();
-            System.out.printf("%d: %d time(s), %d%%\n",
+            writer.printf("%d: %d time(s), %d%%\n",
                     l, count, percentage);
         }
     }
@@ -45,15 +48,15 @@ public class LongContainer implements Container{
     @Override
     public void sortNatural(){
         list.sort((o1, o2) -> (int)(o1-o2));
-        System.out.print("Sorted data:");
+        writer.printf("Sorted data:");
         for(Long l : list) {
-            System.out.print(' ');
-            System.out.print(l);
+            writer.printf(" ");
+            writer.printf("%d", l);
         }
     }
 
     @Override
     public void describe() {
-        System.out.printf("Total numbers: %d.\n", list.size());
+        writer.printf("Total numbers: %d.\n", list.size());
     }
 }
